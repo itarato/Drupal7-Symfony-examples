@@ -1,9 +1,7 @@
 Drupal7-Symfony-examples
 ========================
 
-![Motivation](http://intellectualcramps.files.wordpress.com/2010/04/chuckhappy2.png)
-
-Example use cases of Symfony components in Drupal 7.
+Example use cases of Symfony components (http://symfony.com/doc/current/components/index.html) in Drupal 7.
 
 # Install
 ```
