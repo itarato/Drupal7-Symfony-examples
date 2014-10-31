@@ -32,8 +32,8 @@ function d7sy_di_page() {
   $acmeServiceWithScreenMessaging = $container->get('acme.service.info');
   $acmeServiceWithScreenMessaging->doSomeImportantStuff('Normal stuff');
 
-  /** @var AcmeService $acmeServiceWithCriticalMessaging */
-  $acmeServiceWithCriticalMessaging = $container->get('acme.service.error');
+  // Typed helper method.
+  $acmeServiceWithCriticalMessaging = d7sy_di_get_acme_service_error();
   $acmeServiceWithCriticalMessaging->doSomeImportantStuff('Critical stuff');
 
   return 'Test DI.';
@@ -54,4 +54,11 @@ function d7sy_di_get_container() {
   $container->compile();
 
   return $container;
+}
+
+/**
+ * @return AcmeService
+ */
+function d7sy_di_get_acme_service_error() {
+  return d7sy_di_get_container()->get('acme.service.error');
 }

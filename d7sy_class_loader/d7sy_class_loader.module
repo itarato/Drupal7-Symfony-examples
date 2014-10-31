@@ -2,12 +2,7 @@
 /**
  * @file
  *
- * Example of PSR-4 autoloading.
- *
  * @author itarato
- *
- * @see http://www.php-fig.org/psr/psr-4/
- * @see http://symfony.com/doc/current/components/class_loader/psr4_class_loader.html
  */
 
 // Included namespace for a class of this module.
