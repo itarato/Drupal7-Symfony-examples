@@ -10,6 +10,8 @@ services:
     class: D7SY\DI\Acme\Service\AcmeService
     arguments:
       - @drupal.message.writer
+    calls:
+      - [setMessagePrefix, ["Message -> "]]
 
   acme.service.error:
     class: D7SY\DI\Acme\Service\AcmeService

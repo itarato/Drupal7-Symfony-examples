@@ -14,12 +14,21 @@ class AcmeService {
    */
   private $messageWriter;
 
+  private $messagePrefix;
+
   public function __construct(Writer $messageWriter) {
     $this->messageWriter = $messageWriter;
   }
 
   public function doSomeImportantStuff($message) {
-    $this->messageWriter->write($message);
+    $this->messageWriter->write($this->messagePrefix . $message);
+  }
+
+  /**
+   * @param mixed $messagePrefix
+   */
+  public function setMessagePrefix($messagePrefix) {
+    $this->messagePrefix = $messagePrefix;
   }
 
 }
