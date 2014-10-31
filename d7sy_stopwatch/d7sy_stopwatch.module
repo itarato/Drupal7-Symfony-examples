@@ -1,0 +1,75 @@
+<?php
+/**
+ * @file
+ *
+ * Author: itarato
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Stopwatch\Stopwatch;
+
+/**
+ *  Implements hook_menu().
+ */
+function d7sy_stopwatch_menu() {
+  return array(
+    'd7sy_stopwatch' => array(
+      'title' => 'Symfony - Stopwatch',
+      'access callback' => TRUE,
+      'page callback' => 'd7sy_stopwatch_page',
+    ),
+  );
+}
+
+function d7sy_stopwatch_page() {
+  $output = '';
+  $output .= d7sy_stopwatch_test_simple();
+  $output .= d7sy_stopwatch_test_period();
+  return $output;
+}
+
+function d7sy_stopwatch_test_simple() {
+  $stopWatch = new Stopwatch();
+  $stopWatch->start('acme.action');
+
+  usleep(1234567);
+
+  $event = $stopWatch->stop('acme.action');
+
+  $data = array(
+    'Duration: ' . $event->getDuration(),
+    'Start time: ' . $event->getStartTime(),
+    'End time: ' . $event->getEndTime(),
+    'Memory: ' . $event->getMemory(),
+  );
+
+  return 'Cache clear: ' . theme('item_list', array('items' => $data));
+}
+
+function d7sy_stopwatch_test_period() {
+  $stopWatch = new Stopwatch();
+  $stopWatch->start('acme.compute');
+
+  $string = '';
+  for ($i = 0; $i < 20; $i++) {
+    usleep(rand(0, 100000));
+    $string .= str_repeat('X', rand(100, 1000000));
+    $stopWatch->lap('acme.compute');
+  }
+
+  $event = $stopWatch->stop('acme.compute');
+
+
+  $data = array();
+  foreach ($event->getPeriods() as $period) {
+    $data[] = array(
+      $period->getMemory(),
+      $period->getDuration(),
+      $period->getStartTime(),
+      $period->getEndTime(),
+    );
+  }
+
+  return 'Computation: ' . theme('table', array('header' => array('Memory', 'Duration', 'Start', 'End'), 'rows' => $data));
+}

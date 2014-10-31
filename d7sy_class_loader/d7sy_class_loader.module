@@ -30,7 +30,7 @@ $loader->register();
 function d7sy_class_loader_menu() {
   return array(
     'd7sy_class_loader' => array(
-      'title' => 'Class loader example',
+      'title' => 'Symfony - Class Loader',
       'access callback' => TRUE,
       'page callback' => 'd7sy_class_loader_page',
     ),

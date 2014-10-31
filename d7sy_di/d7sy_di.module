@@ -18,7 +18,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 function d7sy_di_menu() {
   return array(
     'd7sy_di' => array(
-      'title' => 'Dependency injection example',
+      'title' => 'Symfony - Dependency Injection',
       'access callback' => TRUE,
       'page callback' => 'd7sy_di_page',
     ),

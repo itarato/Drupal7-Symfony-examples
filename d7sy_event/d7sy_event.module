@@ -38,7 +38,7 @@ function d7sy_event_get_global_dispatcher() {
 function d7sy_event_menu() {
   return array(
     'd7sy_event' => array(
-      'title' => 'Event example',
+      'title' => 'Symfony - Event',
       'access callback' => TRUE,
       'page callback' => 'drupal_get_form',
       'page arguments' => array('d7sy_event_form'),

@@ -15,7 +15,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 function d7sy_yaml_menu() {
   return array(
     'd7sy_yaml' => array(
-      'title' => 'YAML example',
+      'title' => 'Symfony - YAML',
       'access callback' => TRUE,
       'page callback' => 'd7sy_yaml_page',
     ),
