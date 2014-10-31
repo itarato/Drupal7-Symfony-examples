@@ -8,3 +8,6 @@ Example use cases of Symfony components in Drupal 7.
 
 PSR-4 class loader
 ------------------
+
+Depencency injection
+--------------------
