@@ -6,11 +6,12 @@
  */
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
- *  Implements hook_menu().
+ * Implements hook_menu().
  */
 function d7sy_finder_menu() {
   return array(
@@ -25,10 +26,15 @@ function d7sy_finder_menu() {
 function d7sy_finder_page() {
   $finder = new Finder();
 
-  $finder->files()->in('public://')->in(DRUPAL_ROOT . '/modules')->exclude('custom')->name('*.css')->name('*.js');
+  $finder->files()
+    ->in('public://')
+    ->in(DRUPAL_ROOT . '/modules')
+    ->exclude('custom')
+    ->name('*.css')
+    ->name('*.js');
 
   $data = array();
-  /** @var \Symfony\Component\Finder\SplFileInfo $file */
+  /** @var SplFileInfo $file */
   foreach ($finder as $file) {
     $data[] = array(
       $file->getFilename(),
