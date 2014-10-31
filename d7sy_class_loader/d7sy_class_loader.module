@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ *
+ * Example of PSR-4 autoloading.
+ *
+ * @author itarato
+ * @see http://www.php-fig.org/psr/psr-4/
+ * @see http://symfony.com/doc/current/components/class_loader/psr4_class_loader.html
+ */
+
+// Included namespace for a class of this module.
+use MyModule\Acme\Controller\UserController;
+use Symfony\Component\ClassLoader\Psr4ClassLoader;
+
+/**
+ * Initialize the PSR4 class loader. It makes the classes available for autoloading.
+ */
+require_once __DIR__ . '/vendor/psr4classloader/Psr4ClassLoader.php';
+$loader = new Psr4ClassLoader();
+
+// Register our namespace prefix.
+$loader->addPrefix('MyModule\\', __DIR__ . '/src');
+$loader->register();
+
+/**
+ * Implements hook_init().
+ */
+function d7sy_class_loader_init() {
+  // Use the class now - know that we already loaded the namespace with "use".
+  $steve = new UserController("Steve");
+  drupal_set_message($steve);
+}
