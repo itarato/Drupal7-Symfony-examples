@@ -1,0 +1,57 @@
+<?php
+/**
+ * @file
+ *
+ * Author: itarato
+ */
+
+use D7SY\DI\Acme\Service\AcmeService;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+/**
+ * Implements hook_menu().
+ */
+function d7sy_di_menu() {
+  return array(
+    'd7sy_di' => array(
+      'title' => 'Dependency injection example',
+      'access callback' => TRUE,
+      'page callback' => 'd7sy_di_page',
+    ),
+  );
+}
+
+function d7sy_di_page() {
+  $container = d7sy_di_get_container();
+
+  /** @var AcmeService $acmeServiceWithScreenMessaging */
+  $acmeServiceWithScreenMessaging = $container->get('acme.service.info');
+  $acmeServiceWithScreenMessaging->doSomeImportantStuff('Normal stuff');
+
+  /** @var AcmeService $acmeServiceWithCriticalMessaging */
+  $acmeServiceWithCriticalMessaging = $container->get('acme.service.error');
+  $acmeServiceWithCriticalMessaging->doSomeImportantStuff('Critical stuff');
+
+  return 'Test DI.';
+}
+
+function d7sy_di_get_container() {
+  static $container;
+
+  if (!empty($container)) {
+    return $container;
+  }
+
+  $container = new ContainerBuilder();
+  $locator = new FileLocator(array(__DIR__ . '/config'));
+  $loader = new YamlFileLoader($container, $locator);
+  $loader->load('services.yml');
+
+  $container->compile();
+
+  return $container;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "d7sy/di",
+  "require": {
+    "symfony/dependency-injection": "~2.3",
+    "symfony/config": "~2.3",
+    "symfony/yaml": "~2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "D7SY\\DI\\": "src/"
+    }
+  }
+}

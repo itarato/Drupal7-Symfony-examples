@@ -1,0 +1,17 @@
+services:
+  drupal.message.writer:
+    class: D7SY\DI\Acme\Service\DrupalMessageWriter
+    arguments: ["info"]
+
+  error.writer:
+    class: D7SY\DI\Acme\Service\ErrorWriter
+
+  acme.service.info:
+    class: D7SY\DI\Acme\Service\AcmeService
+    arguments:
+      - @drupal.message.writer
+
+  acme.service.error:
+    class: D7SY\DI\Acme\Service\AcmeService
+    arguments:
+      - @error.writer
