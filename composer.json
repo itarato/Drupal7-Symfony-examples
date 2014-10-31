@@ -4,11 +4,13 @@
     "symfony/dependency-injection": "~2.3",
     "symfony/config": "~2.3",
     "symfony/class-loader": "~2.3",
-    "symfony/yaml": "~2.3"
+    "symfony/yaml": "~2.3",
+    "symfony/event-dispatcher": "~2.3"
   },
   "autoload": {
     "psr-4": {
-      "D7SY\\DI\\": "d7sy_di/src/"
+      "D7SY\\DI\\": "d7sy_di/src/",
+      "D7SY\\Event\\": "d7sy_event/src/"
     }
   }
 }

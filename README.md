@@ -18,7 +18,6 @@ PSR-4 class loader
 ------------------
 
 
-
 Depencency injection
 --------------------
 

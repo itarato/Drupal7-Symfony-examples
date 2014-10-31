@@ -3,11 +3,14 @@ fields:
   name:
     "#type": textfield
     "#title": Name
+    "#attributes":
+      placeholder: "Enter your real name"
 
   food:
     "#type": checkboxes
     "#title": Food preference
-    "#options": ['oriental']
+    "#options": ['oriental', 'russian']
+    "#default_value": [0]
 
   body:
     "#type": textarea
@@ -22,3 +25,4 @@ fields:
       - ceo
       - tester
       - cleaner
+    "#default_value": 2

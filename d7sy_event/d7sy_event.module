@@ -1,0 +1,80 @@
+<?php
+/**
+ * @file
+ *
+ * Author: itarato
+ */
+
+use D7SY\Event\Acme\Event\UserEvent;
+use D7SY\Event\Acme\Model\User;
+use D7SY\Event\Acme\Transformer\EmailAddressSanitizer;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+/**
+ * Implements hook_boot().
+ */
+function d7sy_event_boot() {
+  new EmailAddressSanitizer();
+
+  $eventDispatcher = d7sy_event_get_global_dispatcher();
+  $eventDispatcher->addListener('user.created', ['D7SY\Event\Acme\Log\ScreenLogger', 'onUserCreated']);
+}
+
+function d7sy_event_get_global_dispatcher() {
+  static $instance;
+
+  if (empty($instance)) {
+    $instance = new EventDispatcher();
+  }
+
+  return $instance;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function d7sy_event_menu() {
+  return array(
+    'd7sy_event' => array(
+      'title' => 'Event example',
+      'access callback' => TRUE,
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('d7sy_event_form'),
+    )
+  );
+}
+
+function d7sy_event_form($form) {
+  $form['name'] = array(
+    '#title' => 'Name',
+    '#type' => 'textfield',
+    '#default_value' => 'Richard',
+  );
+
+  $form['mail'] = array(
+    '#title' => 'Email',
+    '#type' => 'textfield',
+    '#default_value' => 'steve@example.co.uk',
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit',
+  );
+
+  return $form;
+}
+
+function d7sy_event_form_submit($form, $form_state) {
+  $user = new User();
+  $user->setName($form_state['values']['name']);
+  $user->setMail($form_state['values']['mail']);
+
+  $event = new UserEvent();
+  $event->user = $user;
+
+  $eventDispatcher = d7sy_event_get_global_dispatcher();
+  $eventDispatcher->dispatch('user.created', $event);
+}
