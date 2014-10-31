@@ -1,0 +1,22 @@
+name: My Application Form
+fields:
+  name:
+    "#type": textfield
+    "#title": Name
+
+  food:
+    "#type": checkboxes
+    "#title": Food preference
+    "#options": ['oriental', 'vegan', 'halal']
+
+  body:
+    "#type": textarea
+    "#title": Resume
+
+  role:
+    "#type": radios
+    "#title": Role
+    "#options":
+      - developer
+      - manager
+      - ceo

@@ -5,17 +5,45 @@
  * Author: itarato
  */
 
+use Symfony\Component\Yaml\Parser;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 /**
- *  Implements hook_menu().
+ * Implements hook_menu().
  */
 function d7sy_yaml_menu() {
   return array(
-    'title' => 'YAML example',
-    'access callback' => TRUE,
-    'page callback' => 'd7sy_yaml_page',
+    'd7sy_yaml' => array(
+      'title' => 'YAML example',
+      'access callback' => TRUE,
+      'page callback' => 'd7sy_yaml_page',
+    ),
   );
 }
 
 function d7sy_yaml_page() {
+  $parser = new Parser();
+  $value = $parser->parse(file_get_contents(__DIR__ . '/config/default.yml'));
 
+  $overrideFileName = __DIR__ . '/config/local.default.yml';
+  if (file_exists($overrideFileName)) {
+    $valueOverride = $parser->parse(file_get_contents($overrideFileName));
+    $value = array_merge($value, $valueOverride);
+  }
+
+  return drupal_get_form('d7sy_yaml_resume_form', $value);
+}
+
+function d7sy_yaml_resume_form($form, $form_state, $structure) {
+  drupal_set_title($structure['name']);
+
+  $form = array_merge($form, $structure['fields']);
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Send',
+  );
+
+  return $form;
 }

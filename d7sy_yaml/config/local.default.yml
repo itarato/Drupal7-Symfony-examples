@@ -1,0 +1,24 @@
+name: My Application Form
+fields:
+  name:
+    "#type": textfield
+    "#title": Name
+
+  food:
+    "#type": checkboxes
+    "#title": Food preference
+    "#options": ['oriental']
+
+  body:
+    "#type": textarea
+    "#title": Resume deluxe super bio
+
+  role:
+    "#type": radios
+    "#title": Role
+    "#options":
+      - developer
+      - manager
+      - ceo
+      - tester
+      - cleaner
