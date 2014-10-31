@@ -1,0 +1,3 @@
+[submodule "d7sy_class_loader/vendor/psr4classloader"]
+	path = d7sy_class_loader/vendor/psr4classloader
+	url = git@github.com:symfony/ClassLoader.git
