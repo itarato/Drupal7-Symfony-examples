@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ *
+ * Author: itarato
+ */
+
+use Symfony\Component\Finder\Finder;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+/**
+ *  Implements hook_menu().
+ */
+function d7sy_finder_menu() {
+  return array(
+    'd7sy_finder' => array(
+      'title' => 'Symfony - Finder',
+      'access callback' => TRUE,
+      'page callback' => 'd7sy_finder_page',
+    ),
+  );
+}
+
+function d7sy_finder_page() {
+  $finder = new Finder();
+
+  $finder->files()->in('public://')->in(DRUPAL_ROOT . '/modules')->exclude('custom')->name('*.css')->name('*.js');
+
+  $data = array();
+  /** @var \Symfony\Component\Finder\SplFileInfo $file */
+  foreach ($finder as $file) {
+    $data[] = array(
+      $file->getFilename(),
+      $file->getPath(),
+      $file->getPerms(),
+    );
+  }
+
+  return theme('table', array('header' => array('filename', 'path', 'permissions'), 'rows' => $data));
+}
